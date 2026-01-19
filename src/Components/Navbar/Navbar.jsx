@@ -38,10 +38,11 @@ const Navbar = () => {
         </h1>
 
         <div className="hidden lg:flex items-center gap-5 text-lg font-semibold">
-          <NavLink to={"/allproducts"}>All Products</NavLink>
-          <NavLink to={"/orders"}>Order</NavLink>
-          <NavLink to={"/admin"}>Admin</NavLink>
-          <span>Logout</span>
+          <NavLink to={"/"} className={`${color.text.hover}`}>Home</NavLink>
+          <NavLink to={"/allproducts"} className={`${color.text.hover}`}>All Products</NavLink>
+          <NavLink to={"/orders"} className={`${color.text.hover}`}>Order</NavLink>
+          <NavLink to={"/dashboard"} className={`${color.text.hover}`}>Admin</NavLink>
+          <NavLink to={"/login"} className={`${color.text.hover}`}>Logout</NavLink>
           <div className="h-7 w-7 rounded-full overflow-hidden">
             <img src={user} alt="user" />
           </div>
@@ -52,7 +53,7 @@ const Navbar = () => {
           >
             <FiSun />
           </button>
-          <NavLink to={"/cart"} className={`flex items-center gap-1.5`}>
+          <NavLink to={"/cart"} className={`flex items-center gap-1.5 ${color.text.hover}`}>
             <FiShoppingCart />0
           </NavLink>
         </div>
@@ -81,7 +82,7 @@ const Navbar = () => {
         >
           <NavLink to={"/allproducts"}>All Products</NavLink>
           <NavLink to={"/orders"}>Order</NavLink>
-          <NavLink to={"/admin"}>Admin</NavLink>
+          <NavLink to={"/dashboard"}>Admin</NavLink>
           <div className="h-7 w-7 rounded-full overflow-hidden">
             <img src={user} alt="user" />
           </div>

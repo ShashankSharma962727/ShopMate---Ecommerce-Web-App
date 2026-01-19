@@ -6,6 +6,9 @@ import Order from "./Pages/Orders/Order";
 import NoPage from "./Pages/NoPage/NoPage";
 import Admin from "./Pages/Admin/Admin";
 import ContextProvider from "./Context/ContextProvider";
+import { Registration } from "./Pages/Authentication/Registration/Registration";
+import { Login } from "./Pages/Authentication/Login/Login";
+import { ProductInfo } from "./Pages/ProductInfo/ProductInfo";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +28,20 @@ const router = createBrowserRouter([
     element: <Order />,
   },
   {
-    path: "/admin",
+    path: "/dashboard",
     element: <Admin />,
+  },
+  {
+    path: "/signup",
+    element: <Registration />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/productinfo/:id",
+    element: <ProductInfo />,
   },
   {
     path: "/*",

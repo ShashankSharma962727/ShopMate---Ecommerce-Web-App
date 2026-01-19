@@ -3,7 +3,7 @@ export const lightTheme = {
 
   background: {
     main: "bg-white",
-    secondary: "bg-[#F9FAFB]",
+    secondary: "bg-gray-200",
     card: "bg-[#F1F5F9]",
   },
 
@@ -11,6 +11,7 @@ export const lightTheme = {
     primary: "text-[#111827]",
     secondary: "text-[#4B5563]",
     muted: "text-[#9CA3AF]",
+    hover: "hover:text-[#3B82F6]"
   },
 
   button: {
