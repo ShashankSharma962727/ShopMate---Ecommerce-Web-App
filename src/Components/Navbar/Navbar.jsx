@@ -1,16 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { FiShoppingCart } from "react-icons/fi";
 import { FiSun } from "react-icons/fi";
-import user from "../../assets/user.jpg";
+import userimg from "../../assets/user.jpg";
 import { RiMenu3Line } from "react-icons/ri";
 
 const Navbar = () => {
   const { isDark, setIsDark } = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
   const [menu, setMenu] = useState(false);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handelMenu = () => {
     setMenu((prev) => !prev);
@@ -28,6 +30,11 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const logout = () => {
+    localStorage.clear("user");
+    navigate("/login");
+  }
+
   return (
     <>
       <div
@@ -40,11 +47,15 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-5 text-lg font-semibold">
           <NavLink to={"/"} className={`${color.text.hover}`}>Home</NavLink>
           <NavLink to={"/allproducts"} className={`${color.text.hover}`}>All Products</NavLink>
-          <NavLink to={"/orders"} className={`${color.text.hover}`}>Order</NavLink>
-          <NavLink to={"/dashboard"} className={`${color.text.hover}`}>Admin</NavLink>
-          <NavLink to={"/login"} className={`${color.text.hover}`}>Logout</NavLink>
+          {
+            user?.user?.email !== "shashanksharma962727@gmail.com" ? <NavLink to={"/orders"} className={`${color.text.hover}`}>Order</NavLink> : ""
+          }
+          {
+            user?.user?.email === "shashanksharma962727@gmail.com" ? <NavLink to={"/dashboard"} className={`${color.text.hover}`}>Admin</NavLink> : ""
+          }
+          <NavLink onClick={logout} className={`${color.text.hover}`}>Logout</NavLink>
           <div className="h-7 w-7 rounded-full overflow-hidden">
-            <img src={user} alt="user" />
+            <img src={userimg} alt="user" />
           </div>
           <button
             onClick={() => {
@@ -81,12 +92,16 @@ const Navbar = () => {
           className={`flex w-full flex-col ${color.background.secondary} items-center shadow-md p-3 fixed`}
         >
           <NavLink to={"/allproducts"}>All Products</NavLink>
-          <NavLink to={"/orders"}>Order</NavLink>
-          <NavLink to={"/dashboard"}>Admin</NavLink>
+          {
+            user?.user?.email !== "shashanksharma962727@gmail.com" ? <NavLink to={"/orders"}>Order</NavLink> : ""
+          }
+          {
+            user?.user?.email === "shashanksharma962727@gmail.com" ? <NavLink to={"/dashboard"}>Admin</NavLink> : ""
+          }
           <div className="h-7 w-7 rounded-full overflow-hidden">
-            <img src={user} alt="user" />
+            <img src={userimg} alt="user" />
           </div>
-          <span>Logout</span>
+          <NavLink onClick={logout} className={`${color.text.hover}`}>Logout</NavLink>
         </div>
       )}
     </>

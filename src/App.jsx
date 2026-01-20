@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import AllProducts from "./Pages/AllProducts/AllProducts";
 import Cart from "./Pages/Cart/Cart";
@@ -9,6 +13,30 @@ import ContextProvider from "./Context/ContextProvider";
 import { Registration } from "./Pages/Authentication/Registration/Registration";
 import { Login } from "./Pages/Authentication/Login/Login";
 import { ProductInfo } from "./Pages/ProductInfo/ProductInfo";
+import AddProduct from "./Components/AddUpdateProduct/AddProduct";
+import UpdateProduct from "./Components/AddUpdateProduct/UpdateProduct";
+
+// Protected Route for users
+const ProtectedRouteUser = ({ children }) => {
+  const user = localStorage.getItem("user");
+
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+};
+
+// Protected Route for Admin
+const ProtectedRouteAdmin = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user?.user?.email === "shashanksharma962727@gmail.com") {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+};
 
 const router = createBrowserRouter([
   {
@@ -21,15 +49,25 @@ const router = createBrowserRouter([
   },
   {
     path: "/cart",
-    element: <Cart />,
+    element: <ProtectedRouteUser>
+        <Cart />
+      </ProtectedRouteUser>,
   },
   {
     path: "/orders",
-    element: <Order />,
+    element: (
+      <ProtectedRouteUser>
+        <Order />
+      </ProtectedRouteUser>
+    ),
   },
   {
     path: "/dashboard",
-    element: <Admin />,
+    element: (
+      <ProtectedRouteAdmin>
+        <Admin />
+      </ProtectedRouteAdmin>
+    ),
   },
   {
     path: "/signup",
@@ -42,6 +80,14 @@ const router = createBrowserRouter([
   {
     path: "/productinfo/:id",
     element: <ProductInfo />,
+  },
+  {
+    path: "/addproduct",
+    element: <AddProduct />,
+  },
+  {
+    path: "/updateproduct",
+    element: <UpdateProduct />,
   },
   {
     path: "/*",
