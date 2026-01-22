@@ -4,6 +4,11 @@ import { darkTheme, lightTheme } from "../../../Styles/Colors";
 import { NavLink } from "react-router";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { app } from "../../../Firebase/Firebase";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore"; 
+
+
+export const db = getFirestore(app);
 
 export const Registration = () => {
   const { isDark } = useContext(context);
@@ -17,21 +22,24 @@ export const Registration = () => {
     e.preventDefault();
     try{
       const users = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(users);
       alert("Signup successfuly");
+      setName("");
       setEmail("");
       setPassword("");
 
-      const user = {
+      const docRef = await addDoc(collection(db, "users"), {
         name: name,
         email: users.user.email,
         uid: users.user.uid
-      }
+      });
+
+      console.log(docRef);
     }
     catch(error){
       console.log(error);
     }
   }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form

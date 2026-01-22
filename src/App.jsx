@@ -83,7 +83,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/addproduct",
-    element: <AddProduct />,
+    element: <ProtectedRouteAdmin>
+      <AddProduct />
+    </ProtectedRouteAdmin>,
   },
   {
     path: "/updateproduct",

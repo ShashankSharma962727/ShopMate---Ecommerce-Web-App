@@ -1,14 +1,30 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
+import { useNavigate } from "react-router-dom";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { RiEdit2Fill } from "react-icons/ri";
 
 const ProductsTable = () => {
-  const { isDark } = useContext(context);
+  const { isDark, products, deleteProduct } = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
+  const navigate = useNavigate();
+  const [delPopUp, setDelPopUp] = useState(false);
+  const [selectProductId, setSelectProductId] = useState("");
+
   return (
-    <div>
-      <h1 className={`${color.text.primary} text-center font-bold text-4xl mb-4`}>Products</h1>
-      <button className={`${color.button.primary} py-1 px-3 rounded-lg`}>
+    <div className="relative">
+      <h1
+        className={`${color.text.primary} text-center font-bold text-4xl mb-4`}
+      >
+        Products
+      </h1>
+      <button
+        onClick={() => {
+          navigate("/addproduct");
+        }}
+        className={`${color.button.primary} py-1 px-3 rounded-lg cursor-pointer`}
+      >
         Add New Products
       </button>
       <table className="w-full border border-gray-300 mt-5">
@@ -25,25 +41,73 @@ const ProductsTable = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td className="border p-2 text-center">1</td>
-            <td className="border p-2 text-center">
-              <img
-                src="https://via.placeholder.com/40"
-                alt="product"
-                className="mx-auto"
-              />
-            </td>
-            <td className="border p-2">Phone</td>
-            <td className="border p-2">₹20,000</td>
-            <td className="border p-2">Electronics</td>
-            <td className="border p-2">12/12/25</td>
-            <td className="border p-2 text-center">
-              <button className="text-red-500">Delete</button>
-            </td>
-          </tr>
+          {products.map((item, index) => (
+            <tr key={item.id}>
+              <td className="border p-2 text-center">{index + 1}</td>
+              <td className="border text-center w-20">
+                <img
+                  src={`${item.imageURL}`}
+                  alt="product"
+                  className="mx-auto"
+                />
+              </td>
+              <td className="border p-2">{item.title}</td>
+              <td className="border p-2">₹{item.price}</td>
+              <td className="border p-2">{item.category}</td>
+              <td className="border p-2">{item.date}</td>
+              <td className="border p-2 text-center">
+                <div className="flex items-center justify-evenly text-2xl">
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      navigate("/updateproduct");
+                    }}
+                  >
+                    <RiEdit2Fill />
+                  </button>
+                  <button onClick={() => {
+                    setSelectProductId(item.id);
+                    setDelPopUp(true);
+                  }} className="cursor-pointer">
+                    <RiDeleteBin5Line />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+
+      {delPopUp && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="w-80 bg-white rounded-xl shadow-xl p-6">
+            <h2 className="text-lg font-semibold text-gray-800 mb-3">
+              Delete Product
+            </h2>
+            <p className="text-sm text-gray-600 mb-5">
+              Are you sure you want to delete this product? This action cannot
+              be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setDelPopUp(false)}
+                className="px-4 py-1 rounded-md border border-gray-400 text-gray-700 hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+
+              <button
+              onClick={() => {
+                deleteProduct(selectProductId);
+                setDelPopUp(false);
+              }}
+              className="px-4 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
