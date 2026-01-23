@@ -6,6 +6,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { FiSun } from "react-icons/fi";
 import userimg from "../../assets/user.jpg";
 import { RiMenu3Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { isDark, setIsDark } = useContext(context);
@@ -13,6 +14,7 @@ const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const cartItem = useSelector((state) => state.cart);
 
   const handelMenu = () => {
     setMenu((prev) => !prev);
@@ -65,7 +67,7 @@ const Navbar = () => {
             <FiSun />
           </button>
           <NavLink to={"/cart"} className={`flex items-center gap-1.5 ${color.text.hover}`}>
-            <FiShoppingCart />0
+            <FiShoppingCart />{cartItem?.length || 0}
           </NavLink>
         </div>
 
@@ -78,7 +80,7 @@ const Navbar = () => {
             <FiSun />
           </button>
           <NavLink to={"/cart"} className={`flex items-center gap-1.5`}>
-            <FiShoppingCart />0
+            <FiShoppingCart />{cartItem?.length || 0}
           </NavLink>
 
           <button onClick={handelMenu}>

@@ -3,7 +3,7 @@ import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
 
 const UpdateProduct = () => {
-  const { isDark } = useContext(context);
+  const { isDark, updateProduct, product, setProduct } = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
 
   return (
@@ -13,16 +13,22 @@ const UpdateProduct = () => {
           Update Product
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4"
+        onSubmit={updateProduct}
+        >
           <input
             type="text"
             placeholder="Product Title"
+            value={product.title}
+            onChange={(e) => setProduct({...product, title: e.target.value})}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
           <input
             type="number"
             placeholder="Product Price"
+            value={product.price}
+            onChange={(e) => setProduct({...product, price: e.target.value})}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
@@ -30,17 +36,23 @@ const UpdateProduct = () => {
           <input
             type="text"
             placeholder="Product Image URL"
+            value={product.imageURL}
+            onChange={(e) => setProduct({...product, imageURL: e.target.value})}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-
+          
           <input
             type="text"
             placeholder="Product Category"
+            value={product.category}
+            onChange={(e) => setProduct({...product, category: e.target.value})}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
           <textarea
             placeholder="Product Description"
+            value={product.description}
+            onChange={(e) => setProduct({...product, description: e.target.value})}
             rows="3"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           ></textarea>

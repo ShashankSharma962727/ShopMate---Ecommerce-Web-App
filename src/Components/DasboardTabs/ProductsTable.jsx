@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 
 const ProductsTable = () => {
-  const { isDark, products, deleteProduct } = useContext(context);
+  const { isDark, products, deleteProduct, editHandle } = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
   const navigate = useNavigate();
   const [delPopUp, setDelPopUp] = useState(false);
@@ -44,31 +44,28 @@ const ProductsTable = () => {
           {products.map((item, index) => (
             <tr key={item.id}>
               <td className="border p-2 text-center">{index + 1}</td>
+
               <td className="border text-center w-20">
-                <img
-                  src={`${item.imageURL}`}
-                  alt="product"
-                  className="mx-auto"
-                />
+                <img src={item.imageURL} alt="product" className="mx-auto" />
               </td>
+
               <td className="border p-2">{item.title}</td>
               <td className="border p-2">₹{item.price}</td>
               <td className="border p-2">{item.category}</td>
               <td className="border p-2">{item.date}</td>
               <td className="border p-2 text-center">
                 <div className="flex items-center justify-evenly text-2xl">
-                  <button
-                    className="cursor-pointer"
-                    onClick={() => {
-                      navigate("/updateproduct");
-                    }}
-                  >
+                  <NavLink to={"/updateproduct"}>
+                    <button onClick={() => editHandle(item)}>
                     <RiEdit2Fill />
                   </button>
-                  <button onClick={() => {
-                    setSelectProductId(item.id);
-                    setDelPopUp(true);
-                  }} className="cursor-pointer">
+                  </NavLink>
+                  <button
+                    onClick={() => {
+                      setSelectProductId(item.id);
+                      setDelPopUp(true);
+                    }}
+                  >
                     <RiDeleteBin5Line />
                   </button>
                 </div>
@@ -97,11 +94,12 @@ const ProductsTable = () => {
               </button>
 
               <button
-              onClick={() => {
-                deleteProduct(selectProductId);
-                setDelPopUp(false);
-              }}
-              className="px-4 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                onClick={() => {
+                  deleteProduct(selectProductId);
+                  setDelPopUp(false);
+                }}
+                className="px-4 py-1 rounded-md bg-red-600 text-white hover:bg-red-700"
+              >
                 Delete
               </button>
             </div>

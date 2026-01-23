@@ -6,8 +6,8 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   Timestamp,
-  updateDoc,
 } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { db } from "../Pages/Authentication/Registration/Registration";
@@ -49,7 +49,7 @@ const ContextProvider = ({ children }) => {
     try {
       await addDoc(collection(db, "Products"), product);
       alert("Product Added");
-      window.location.href = "/dashboard"
+      window.location.href = "/dashboard";
     } catch (error) {
       console.log(error);
     }
@@ -85,15 +85,22 @@ const ContextProvider = ({ children }) => {
   }
   
   // Update Product
-  const updateproduct = async (id) => {
-    try{
-      const doc = await doc(db, "Products", id);
-      await updateDoc(doc, product);
-    }
-    catch(error){
+
+  const editHandle = (item) => {
+    setProduct(item);
+  }
+
+  const updateProduct = async (e) => {
+    
+    try {
+      e.preventDefault();
+      await setDoc(doc(db, "Products", product.id), product);
+      window.location.href = "/dashboard";
+    } catch (error) {
       console.log(error);
     }
   }
+  
   return (
     <context.Provider
       value={{
@@ -105,7 +112,8 @@ const ContextProvider = ({ children }) => {
         products,
         setProducts,
         deleteProduct,
-        updateproduct
+        updateProduct,
+        editHandle
       }}
     >
       {children}

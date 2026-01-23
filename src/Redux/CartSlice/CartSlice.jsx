@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
-const initialState = [];
+const initialState = JSON.parse(localStorage.getItem("CartItems")) || [];
 
 const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
         addtoCart(state, action){
-            state.push(action.payload)
+            state.push(action.payload);
         },
         deleteFromCart(state, action){
-            return state.filter((item) => item.id != action.payload.id)
+            return state.filter((item) => item.id != action.payload.id);
         }
     }
 })
