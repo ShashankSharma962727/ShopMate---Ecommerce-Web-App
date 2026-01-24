@@ -31,6 +31,8 @@ const ContextProvider = ({ children }) => {
   });
 
   const [products, setProducts] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
+  const [selectCategory, setSelectCategory] = useState("All");
 
   // Add Product
   const addProduct = async (e) => {
@@ -48,7 +50,6 @@ const ContextProvider = ({ children }) => {
 
     try {
       await addDoc(collection(db, "Products"), product);
-      alert("Product Added");
       window.location.href = "/dashboard";
     } catch (error) {
       console.log(error);
@@ -57,10 +58,7 @@ const ContextProvider = ({ children }) => {
 
   // Get Product Data
   useEffect(() => {
-    const q = query(
-      collection(db, "Products"),
-      orderBy("time", "desc")
-    );
+    const q = query(collection(db, "Products"), orderBy("time", "desc"));
 
     const data = onSnapshot(q, (snapshot) => {
       const productArray = [];
@@ -75,23 +73,21 @@ const ContextProvider = ({ children }) => {
 
   // Delete Product
   const deleteProduct = async (id) => {
-    try{
+    try {
       await deleteDoc(doc(db, "Products", id));
       alert("Product Deleted");
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
-  
+  };
+
   // Update Product
 
   const editHandle = (item) => {
     setProduct(item);
-  }
+  };
 
   const updateProduct = async (e) => {
-    
     try {
       e.preventDefault();
       await setDoc(doc(db, "Products", product.id), product);
@@ -99,8 +95,8 @@ const ContextProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
-  }
-  
+  };
+
   return (
     <context.Provider
       value={{
@@ -113,7 +109,11 @@ const ContextProvider = ({ children }) => {
         setProducts,
         deleteProduct,
         updateProduct,
-        editHandle
+        editHandle,
+        searchItem,
+        setSearchItem,
+        selectCategory,
+        setSelectCategory,
       }}
     >
       {children}

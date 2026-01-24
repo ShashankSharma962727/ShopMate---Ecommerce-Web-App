@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Layout from "../../Components/Layout/Layout";
 import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
+import { useParams } from "react-router";
 
 export const ProductInfo = () => {
-  const { isDark } = useContext(context);
+  const { isDark, products } = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
+  const {id} = useParams();
+
+  const product = products.find((item) => item.id === id);
 
   return (
     <Layout>
@@ -13,18 +17,14 @@ export const ProductInfo = () => {
         <div className="flex flex-col md:flex-row gap-10">
           
           
-          <div className="flex-1 bg-gray-300 rounded-xl h-[420px] flex items-center justify-center">
-            <span className="text-gray-600">Product Image</span>
+          <div className="flex-1 bg-gray-300 rounded-xl h-[420px] flex items-center justify-center overflow-hidden">
+            <img src={product?.imageURL} alt="product" className="h-full w-full object-cover" />
           </div>
 
           <div className={`flex-1 flex flex-col gap-4 ${color.text.secondary}`}>
-            
-            <p className="uppercase tracking-wide text-sm">
-              Brand Name
-            </p>
 
             <h1 className={`${color.text.primary} text-3xl font-bold`}>
-              The Catcher in the Rye
+              {product?.title}
             </h1>
 
             <div className="flex items-center gap-2 text-sm">
@@ -33,14 +33,12 @@ export const ProductInfo = () => {
             </div>
 
             <p className="leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              Tenetur dolorum ut, quod voluptatem repellendus eveniet quas 
-              quos eos aliquam rerum.
+              {product?.description}
             </p>
 
             <div className="flex items-center gap-6 mt-4">
               <span className="text-2xl font-semibold">
-                $59.00
+                ₹{product?.price}/-
               </span>
 
               <button

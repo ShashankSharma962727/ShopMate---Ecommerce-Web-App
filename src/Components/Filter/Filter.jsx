@@ -3,7 +3,7 @@ import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
 
 const Filter = () => {
-  const { isDark } = useContext(context);
+  const { isDark, searchItem, setSearchItem, products, setSelectCategory} = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
   return (
     <div
@@ -13,15 +13,19 @@ const Filter = () => {
         type="text"
         className="w-full bg-white p-2 rounded-lg"
         placeholder="Search here"
+        value={searchItem}
+        onChange={(e) => setSearchItem(e.target.value)}
       />
       <div className="flex flex-col">
         <h2 className="text-lg font-semibold">Filter</h2>
         <div className="flex items-center gap-2">
-          <select className="bg-white p-1 rounded-lg flex-1">
-            <option>Jacket</option>
-            <option>Shirt</option>
-            <option>Jeanse</option>
-            <option>Pant</option>
+          <select onChange={(e) => setSelectCategory(e.target.value)} className="bg-white p-1 rounded-lg flex-1">
+            <option value="All">All Categories</option>
+            {
+              products.map((item, index) => (
+                <option key={index} value={item.category}>{item?.category}</option>
+              ))
+            }
           </select>
           <select className="bg-white p-1 rounded-lg flex-1">
             <option>Jacket</option>
