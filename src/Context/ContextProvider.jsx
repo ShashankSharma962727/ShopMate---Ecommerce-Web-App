@@ -33,6 +33,13 @@ const ContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [selectCategory, setSelectCategory] = useState("All");
+  const [orders, setOrders] = useState([]);
+  const [addressInfo, setAddressInfo] = useState({
+    name: "",
+    email: "",
+    pincode: "",
+    phone: "",
+  });
 
   // Add Product
   const addProduct = async (e) => {
@@ -114,6 +121,10 @@ const ContextProvider = ({ children }) => {
         setSearchItem,
         selectCategory,
         setSelectCategory,
+        setAddressInfo,
+        addressInfo,
+        setOrders,
+        orders,
       }}
     >
       {children}

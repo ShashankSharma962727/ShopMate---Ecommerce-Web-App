@@ -11,14 +11,14 @@ const Card = ({ item, addCart }) => {
   return (
     <div
       onClick={() => navigate(`/productinfo/${item.id}`)}
-      className={`${color.background.card} max-w-76 shadow-lg rounded-xl border border-gray-200 cursor-pointer hover:shadow-xl transition-all`}
+      className={`${color.background.card} w-full max-w-60 shadow-lg rounded-xl border border-gray-200 cursor-pointer hover:shadow-xl transition-all`}
     >
       {/* Image */}
       <figure className="px-4 pt-4">
         <img
           src={item.imageURL}
           alt={item.title}
-          className="rounded-lg h-48 w-full object-cover"
+          className="rounded-lg h-48 w-full object-contain"
         />
       </figure>
 

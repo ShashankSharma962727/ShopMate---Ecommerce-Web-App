@@ -1,15 +1,13 @@
 import Filter from "../../Components/Filter/Filter";
 import Layout from "../../Components/Layout/Layout";
 import { ProductCardSection } from "../../Components/ProductCard/ProductCardSection/ProductCardSection";
-import TestimonialSection from "../../Components/Testimonials/TestimonialSection";
 
 const AllProducts = () => {
   return (
     <Layout>
-      <div className="w-full m-auto">
+      <div className="w-full m-auto flex px-5 gap-5">
         <Filter />
         <ProductCardSection />
-        <TestimonialSection />
       </div>
     </Layout>
   );

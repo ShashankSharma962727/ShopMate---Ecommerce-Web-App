@@ -5,7 +5,6 @@ import { context } from "../../Context/ContextProvider";
 import { useContext, useState } from "react";
 import ProductsTable from "./ProductsTable";
 import OrdersTable from "./OrdersTable";
-import UsersTable from "./UsersTable";
 
 const DashboardTabs = () => {
   const { isDark } = useContext(context);
@@ -32,10 +31,6 @@ const DashboardTabs = () => {
         <div onClick={() => setActiveTab("orders")} className={tabClass("orders")}>
           <IoBag /> Orders
         </div>
-
-        <div onClick={() => setActiveTab("users")} className={tabClass("users")}>
-          <FaUserAlt /> Users
-        </div>
       </div>
 
       <div
@@ -43,7 +38,6 @@ const DashboardTabs = () => {
       >
         {activeTab === "products" && <ProductsTable/>}
         {activeTab === "orders" && <OrdersTable/>}
-        {activeTab === "users" && <UsersTable/>}
       </div>
     </div>
   );

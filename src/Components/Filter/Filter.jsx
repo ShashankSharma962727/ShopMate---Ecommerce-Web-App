@@ -3,11 +3,11 @@ import { context } from "../../Context/ContextProvider";
 import { darkTheme, lightTheme } from "../../Styles/Colors";
 
 const Filter = () => {
-  const { isDark, searchItem, setSearchItem, products, setSelectCategory} = useContext(context);
+  const { isDark, searchItem, setSearchItem, products, setSelectCategory } = useContext(context);
   const color = isDark ? darkTheme : lightTheme;
   return (
     <div
-      className={`w-[90%] h-40 m-auto ${color.background.secondary} ${color.text.secondary} rounded-lg shadow-lg mt-5 flex flex-col gap-2 p-5`}
+      className={`w-full max-w-100  h-40 m-auto ${color.background.secondary} ${color.text.secondary} rounded-lg shadow-lg mt-5 flex flex-col gap-2 p-5`}
     >
       <input
         type="text"
@@ -27,13 +27,6 @@ const Filter = () => {
               ))
             }
           </select>
-          <select className="bg-white p-1 rounded-lg flex-1">
-            <option>Jacket</option>
-            <option>Shirt</option>
-            <option>Jeanse</option>
-            <option>Pant</option>
-          </select>
-          <button className={`${color.button.primary} p-1 rounded-md`}>Remove Filter</button>
         </div>
       </div>
     </div>

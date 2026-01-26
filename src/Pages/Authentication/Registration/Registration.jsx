@@ -32,8 +32,6 @@ export const Registration = () => {
         email: users.user.email,
         uid: users.user.uid
       });
-
-      console.log(docRef);
     }
     catch(error){
       console.log(error);
