@@ -1,18 +1,13 @@
-import { useContext } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { context } from "../../Context/ContextProvider";
-import { darkTheme, lightTheme } from "../../Styles/Colors";
 
 export const CartCard = ({ item, deleteItem }) => {
-  const { isDark } = useContext(context);
-  const color = isDark ? darkTheme : lightTheme;
 
   
   return (
     <div
-      className={`w-full flex gap-4 p-4 rounded-xl shadow-lg ${color.background.card}`}
+      className={`w-full max-w-180 flex gap-4 bg-gray-200 text-[#020101] p-4 rounded-xl shadow-lg `}
     >
-      <div className="w-32 h-32 bg-gray-400 rounded-lg flex-shrink-0">
+      <div className="w-32 h-32 rounded-lg">
         <img
           src={`${item.imageURL}`}
           className="h-full w-full object-contain"
@@ -20,16 +15,16 @@ export const CartCard = ({ item, deleteItem }) => {
         />
       </div>
       <div
-        className={`${color.text.secondary} flex flex-1 justify-between gap-4`}
+        className={` flex flex-1 justify-between gap-4`}
       >
         <div className="flex flex-col gap-2">
-          <h1 className={`${color.text.primary} font-semibold text-lg`}>
+          <h1 className={` font-semibold text-base md:text-lg`}>
             {item.title}
           </h1>
 
-          <p className="text-sm line-clamp-2 opacity-80">{item.description}</p>
+          <p className="text-xs md:text-sm line-clamp-2 opacity-80">{item.description}</p>
 
-          <p className="font-semibold">{item.price}</p>
+          <p className="font-semibold">₹ {item.price}/-</p>
         </div>
 
         <button

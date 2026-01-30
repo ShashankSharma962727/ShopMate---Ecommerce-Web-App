@@ -5,7 +5,7 @@ import { ProductCardSection } from "../../Components/ProductCard/ProductCardSect
 const AllProducts = () => {
   return (
     <Layout>
-      <div className="w-full m-auto flex px-5 gap-5">
+      <div className="w-full m-auto flex flex-col xl:flex-row px-3 md:px-5 gap-5">
         <Filter />
         <ProductCardSection />
       </div>

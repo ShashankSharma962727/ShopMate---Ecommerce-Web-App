@@ -1,59 +1,38 @@
-export const lightTheme = {
-  primary: "text-[#3B82F6]",
+export const colors = {
+  bgPrimary: "#fdfdfc",
+  bgSecondary: "#fae258",
+  bgSectionHighlight: "#e4c340",
 
-  background: {
-    main: "bg-white",
-    secondary: "bg-gray-200",
-    card: "bg-[#F1F5F9]",
-  },
+  textPrimary: "#020101",
+  textSecondary: "#46332e",
+  textMuted: "#657484",
+  textLight: "#9ca7b5",
+  textWhite: "#ffffff",
 
-  text: {
-    primary: "text-[#111827]",
-    secondary: "text-[#4B5563]",
-    muted: "text-[#9CA3AF]",
-    hover: "hover:text-[#3B82F6]"
-  },
+  cardBg: "#ffffff",
+  cardBorder: "#d4d7d5",
+  cardShadow: "rgba(0,0,0,0.08)",
 
-  button: {
-    primary: "bg-[#3B82F6] text-white",
-    primaryHover: "hover:bg-[#2563EB]",
-    secondary: "bg-[#E5E7EB] text-[#111827]",
-  },
+  buttonPrimaryBg: "#020101",
+  buttonPrimaryText: "#ffffff",
+  buttonPrimaryHover: "#46332e",
 
-  status: {
-    success: "text-[#22C55E]",
-    error: "text-[#EF4444]",
-    warning: "text-[#F59E0B]",
-    info: "text-[#0EA5E9]",
-  },
-};
+  buttonSecondaryBg: "#e4c340",
+  buttonSecondaryText: "#020101",
+  buttonSecondaryHover: "#ebd86f",
 
+  bannerBg: "#fae258",
+  bannerText: "#020101",
+  bannerAccent: "#9e622f",
 
-export const darkTheme = {
-  primary: "text-[#3B82F6]",
+  imageOverlayLight: "#e7bdad",
+  imageOverlaySoft: "#c48983",
 
-  background: {
-    main: "bg-[#0F172A]",
-    secondary: "bg-[#020617]",
-    card: "bg-[#1E293B]",
-  },
+  footerBg: "#020101",
+  footerText: "#ffffff",
+  footerLink: "#fae258",
+  footerMutedText: "#9ca7b5",
 
-  text: {
-    primary: "text-[#F8FAFC]",
-    secondary: "text-[#CBD5E1]",
-    muted: "text-[#64748B]",
-  },
-
-  button: {
-    primary: "bg-[#3B82F6] text-white",
-    primaryHover: "hover:bg-[#60A5FA]",
-    secondary: "bg-[#334155] text-[#E5E7EB]",
-  },
-
-  status: {
-    success: "text-[#4ADE80]",
-    error: "text-[#F87171]",
-    warning: "text-[#FBBF24]",
-    info: "text-[#38BDF8]",
-  },
+  brandPrimary: "#e4c340",
+  brandSecondary: "#9e622f",
 };

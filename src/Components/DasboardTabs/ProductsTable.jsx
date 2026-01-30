@@ -1,21 +1,19 @@
 import { useContext, useState } from "react";
 import { context } from "../../Context/ContextProvider";
-import { darkTheme, lightTheme } from "../../Styles/Colors";
 import { NavLink, useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 
 const ProductsTable = () => {
-  const { isDark, products, deleteProduct, editHandle } = useContext(context);
-  const color = isDark ? darkTheme : lightTheme;
+  const { products, deleteProduct, editHandle } = useContext(context);
   const navigate = useNavigate();
   const [delPopUp, setDelPopUp] = useState(false);
   const [selectProductId, setSelectProductId] = useState("");
 
   return (
-    <div className="relative">
+    <div className="relative text-[#020101]">
       <h1
-        className={`${color.text.primary} text-center font-bold text-4xl mb-4`}
+        className={`text-center font-bold text-lg md:text-2xl mb-4`}
       >
         Products
       </h1>
@@ -23,13 +21,14 @@ const ProductsTable = () => {
         onClick={() => {
           navigate("/addproduct");
         }}
-        className={`${color.button.primary} py-1 px-3 rounded-lg cursor-pointer`}
+        className="bg-yellow-200 py-2 px-4 text-sm md:text-base rounded-lg font-semibold text-yellow-900 cursor-pointer"
       >
         Add New Products
       </button>
-      <table className="w-full border border-gray-300 mt-5">
+      <div className="w-full overflow-x-auto">
+        <table className="w-full border border-gray-300 mt-5 text-sm md:text-base">
         <thead>
-          <tr className="bg-gray-100">
+          <tr>
             <th className="border p-2">S No.</th>
             <th className="border p-2">Image</th>
             <th className="border p-2">Title</th>
@@ -74,6 +73,7 @@ const ProductsTable = () => {
           ))}
         </tbody>
       </table>
+      </div>
 
       {delPopUp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">

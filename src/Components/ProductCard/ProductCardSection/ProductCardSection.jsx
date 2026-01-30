@@ -1,13 +1,11 @@
 import { useContext, useEffect } from "react";
 import Card from "../Card/Card";
 import { context } from "../../../Context/ContextProvider";
-import { darkTheme, lightTheme } from "../../../Styles/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart } from "../../../Redux/CartSlice/CartSlice";
 
 export const ProductCardSection = () => {
-  const { isDark, products, searchItem, selectCategory } = useContext(context);
-  const color = isDark ? darkTheme : lightTheme;
+  const { products, searchItem, selectCategory } = useContext(context);
 
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cart);
@@ -26,15 +24,11 @@ export const ProductCardSection = () => {
   }, [cartItem]);
 
   return (
-    <div className={`w-[90%] m-auto flex flex-col gap-2`}>
-      <h2 className={`${color.text.primary} text-3xl font-semibold mt-3`}>
-        Our Latest Collection
-      </h2>
-      <div className="flex flex-wrap w-full gap-5 mt-2">
+    
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 w-full gap-5 mt-5">
         {filteredProducts.map((item) => (
           <Card key={item.id} item={item} addCart={addCart} />
         ))}
       </div>
-    </div>
   );
 };

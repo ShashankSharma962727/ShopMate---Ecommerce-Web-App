@@ -1,14 +1,12 @@
 import { useContext } from "react";
 import Layout from "../../Components/Layout/Layout";
 import { context } from "../../Context/ContextProvider";
-import { darkTheme, lightTheme } from "../../Styles/Colors";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { addtoCart } from "../../Redux/CartSlice/CartSlice";
 
 export const ProductInfo = () => {
-  const { isDark, products } = useContext(context);
-  const color = isDark ? darkTheme : lightTheme;
+  const { products } = useContext(context);
   const {id} = useParams();
   const dispatch = useDispatch();
 
@@ -19,7 +17,7 @@ export const ProductInfo = () => {
 
   return (
     <Layout>
-      <div className="w-[90%] m-auto mt-16">
+      <div className="w-[90%] min-h-150 m-auto mt-16 text-[#020101]">
         <div className="flex flex-col md:flex-row gap-10">
           
           
@@ -27,9 +25,9 @@ export const ProductInfo = () => {
             <img src={product?.imageURL} alt="product" className="h-full w-full object-contain" />
           </div>
 
-          <div className={`flex-1 flex flex-col gap-4 ${color.text.secondary}`}>
+          <div className={`flex-1 flex flex-col gap-4`}>
 
-            <h1 className={`${color.text.primary} text-3xl font-bold`}>
+            <h1 className={` text-xl md:text-2xl  font-bold`}>
               {product?.title}
             </h1>
 
@@ -38,7 +36,7 @@ export const ProductInfo = () => {
               <span className="opacity-70">(4 Reviews)</span>
             </div>
 
-            <p className="leading-relaxed">
+            <p className="leading-relaxed text-sm md:text-base">
               {product?.description}
             </p>
 
@@ -48,8 +46,8 @@ export const ProductInfo = () => {
               </span>
 
               <button
-                onClick={() => addCart(product)}
-                className={`${color.button.primary} py-2 px-6 rounded-lg font-medium hover:opacity-90 transition`}
+                onClick={() => addCart(product)} 
+                className="bg-yellow-200 py-2 px-6 text-xs md:text-sm rounded-lg font-semibold text-yellow-900"
               >
                 Add to Cart
               </button>

@@ -1,13 +1,11 @@
 import { useContext } from "react";
 import { context } from "../../Context/ContextProvider";
-import { darkTheme, lightTheme } from "../../Styles/Colors";
 
 const Filter = () => {
-  const { isDark, searchItem, setSearchItem, products, setSelectCategory } = useContext(context);
-  const color = isDark ? darkTheme : lightTheme;
+  const { searchItem, setSearchItem, products, setSelectCategory } = useContext(context);
   return (
     <div
-      className={`w-full max-w-100  h-40 m-auto ${color.background.secondary} ${color.text.secondary} rounded-lg shadow-lg mt-5 flex flex-col gap-2 p-5`}
+      className={`w-full xl:max-w-100 m-auto rounded-lg bg-gray-200 text-[#020101] mt-5 flex flex-col gap-2 p-5`}
     >
       <input
         type="text"

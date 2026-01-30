@@ -1,11 +1,12 @@
-import Layout from "../../Components/Layout/Layout"
+import Layout from "../../Components/Layout/Layout";
+import OrdersTable from "../../Components/DasboardTabs/OrdersTable";
 
 const Order = () => {
   return (
     <Layout>
-        Order
+      <OrdersTable />
     </Layout>
-  )
-}
+  );
+};
 
-export default Order
+export default Order;

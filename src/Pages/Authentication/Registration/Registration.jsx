@@ -1,6 +1,4 @@
 import { useContext, useState } from "react";
-import { context } from "../../../Context/ContextProvider";
-import { darkTheme, lightTheme } from "../../../Styles/Colors";
 import { NavLink } from "react-router";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { app } from "../../../Firebase/Firebase";
@@ -11,8 +9,6 @@ import { collection, addDoc } from "firebase/firestore";
 export const db = getFirestore(app);
 
 export const Registration = () => {
-  const { isDark } = useContext(context);
-  const color = isDark ? darkTheme : lightTheme;
   const auth = getAuth(app);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +18,6 @@ export const Registration = () => {
     e.preventDefault();
     try{
       const users = await createUserWithEmailAndPassword(auth, email, password);
-      alert("Signup successfuly");
       setName("");
       setEmail("");
       setPassword("");
@@ -39,18 +34,18 @@ export const Registration = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-[#fdfdfc]">
       <form
 
       onSubmit={signUp}
-        className={`${color.text.secondary} w-full max-w-md bg-white p-8 rounded-xl shadow-md`}
+        className={`w-60 sm:w-80 lg:w-100 bg-gray-200 p-3 rounded-xl shadow-md text-[#020101]`}
       >
-        <h2 className={`${color.primary} text-2xl font-bold text-center mb-6`}>
+        <h2 className={`text-xl lg:text-2xl font-bold text-center mb-6`}>
           Create Account
         </h2>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm lg:text-base font-medium text-gray-700 mb-1">
             Full Name
           </label>
           <input
@@ -59,12 +54,12 @@ export const Registration = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full px-2 py-1 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:outline-none"
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm lg:text-base font-medium text-gray-700 mb-1">
             Email
           </label>
           <input
@@ -73,12 +68,12 @@ export const Registration = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full px-2 py-1 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:outline-none"
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm lg:text-base font-medium text-gray-700 mb-1">
             Password
           </label>
           <input
@@ -87,18 +82,18 @@ export const Registration = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full px-2 py-1 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:outline-none"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+          className="w-full bg-yellow-400 text-white py-1 lg:py-2 rounded-lg font-semibold hover:bg-yellow-500 transition"
         >
           Register
         </button>
         
-        <p className="text-sm text-center mt-4 text-gray-600">
+        <p className="text-xs lg:text-sm text-center mt-4 text-gray-600">
           Already registered?{" "}
           <NavLink
             to={"/login"}

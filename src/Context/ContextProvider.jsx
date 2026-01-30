@@ -15,7 +15,6 @@ import { db } from "../Pages/Authentication/Registration/Registration";
 export const context = createContext(null);
 
 const ContextProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(false);
   const [product, setProduct] = useState({
     title: "",
     price: "",
@@ -41,29 +40,23 @@ const ContextProvider = ({ children }) => {
     phone: "",
   });
 
-  // Add Product
-  const addProduct = async (e) => {
-    e.preventDefault();
-    if (
-      product.title == null ||
-      product.price == null ||
-      product.imageURL == null ||
-      product.category == null ||
-      product.description == null
-    ) {
-      alert("All input fields are required");
-      return;
-    }
+  useEffect(() => {
+    const q = query(
+      collection(db, "Orders"),
+      orderBy("createdAt", "desc")
+    );
 
-    try {
-      await addDoc(collection(db, "Products"), product);
-      window.location.href = "/dashboard";
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const OrderArr = [];
+      snapshot.forEach((doc) => {
+        OrderArr.push({ ...doc.data(), id: doc.id });
+      });
+      setOrders(OrderArr);
+    });
 
-  // Get Product Data
+    return () => unsubscribe();
+  }, []);
+
   useEffect(() => {
     const q = query(collection(db, "Products"), orderBy("time", "desc"));
 
@@ -78,37 +71,42 @@ const ContextProvider = ({ children }) => {
     return () => data();
   }, []);
 
-  // Delete Product
-  const deleteProduct = async (id) => {
-    try {
-      await deleteDoc(doc(db, "Products", id));
-      alert("Product Deleted");
-    } catch (error) {
-      console.log(error);
+  const addProduct = async (e) => {
+    e.preventDefault();
+
+    if (
+      product.title == null ||
+      product.price == null ||
+      product.imageURL == null ||
+      product.category == null ||
+      product.description == null
+    ) {
+      alert("All input fields are required");
+      return;
     }
+
+    await addDoc(collection(db, "Products"), product);
+    window.location.href = "/dashboard";
   };
 
-  // Update Product
+  const deleteProduct = async (id) => {
+    await deleteDoc(doc(db, "Products", id));
+    alert("Product Deleted");
+  };
 
   const editHandle = (item) => {
     setProduct(item);
   };
 
   const updateProduct = async (e) => {
-    try {
-      e.preventDefault();
-      await setDoc(doc(db, "Products", product.id), product);
-      window.location.href = "/dashboard";
-    } catch (error) {
-      console.log(error);
-    }
+    e.preventDefault();
+    await setDoc(doc(db, "Products", product.id), product);
+    window.location.href = "/dashboard";
   };
 
   return (
     <context.Provider
       value={{
-        isDark,
-        setIsDark,
         product,
         setProduct,
         addProduct,
